@@ -25,9 +25,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/selectize/dist/css/selectize.default.css",
+              "node_modules/selectize/dist/css/selectize.bootstrap3.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/selectize/dist/js/standalone/selectize.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,4 +103,5 @@
   "cli": {
     "analytics": "006cc0dc-af79-4946-bdb0-ce0165c3f33a"
   }
+  
 }
