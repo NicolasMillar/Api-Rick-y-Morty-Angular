@@ -1,5 +1,3 @@
-<h1 *ngIf="personajes; else elsePersonajes">{{personajes}}</h1>
-
-<ng-template #elsePersonajes>
-    <h1>Aun no hay personajes</h1>
-</ng-template>
+<div class="personajes--grid">
+    <app-personaje *ngFor="let p of personajes" [personaje]="p"></app-personaje>
+</div>
