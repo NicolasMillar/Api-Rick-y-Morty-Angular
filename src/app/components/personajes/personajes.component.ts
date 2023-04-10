@@ -9,6 +9,7 @@ import { Personajes } from '../../models/personajes.models'
 export class PersonajesComponent implements OnChanges{
 
   @Input() locations: String = 'valor inicial';
+  Myfavorite: Personajes[] = [];
 
   personajes: Personajes[] = [
     {
@@ -35,6 +36,10 @@ export class PersonajesComponent implements OnChanges{
 
   ngOnChanges() {
       //algo voy a hacer aqui solo que aun no lo se
+  }
+
+  onAddToFavorites(personaje: Personajes) {
+    this.Myfavorite.push(personaje);
   }
 
 }

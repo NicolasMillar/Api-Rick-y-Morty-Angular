@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Personajes } from '../../models/personajes.models';
 
 @Component({
@@ -8,8 +8,22 @@ import { Personajes } from '../../models/personajes.models';
 })
 export class PersonajeComponent {
 
-  @Input() personaje!: Personajes;
+  @Input() personaje: Personajes = {
+    id: 0,
+    name: '',
+    status: '',
+    species: '',
+    gender: '',
+    location: '',
+    img: ''
+  };
+
+  @Output() addPersonajes = new EventEmitter<Personajes>();
 
   constructor(){}
+
+  onAddToFavorites() {
+    this.addPersonajes.emit(this.personaje);
+  }
 
 }
