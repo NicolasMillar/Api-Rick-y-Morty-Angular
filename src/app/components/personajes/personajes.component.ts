@@ -1,45 +1,57 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Personajes } from '../../models/personajes.models'
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Personajes } from '../../models/personajes.models';
+import { StoreService } from '../../services/store.service';
+import { PersonajesService } from '../../services/personajes.service';
+import { take } from 'rxjs';
+
+type RequestInfo = {
+  next: String;
+}
 
 @Component({
   selector: 'app-personajes',
   templateUrl: './personajes.component.html',
   styleUrls: ['./personajes.component.css']
 })
-export class PersonajesComponent implements OnChanges{
+export class PersonajesComponent implements OnInit{
 
   @Input() locations: String = 'valor inicial';
+  info: RequestInfo = {
+    next: '',
+  }
   Myfavorite: Personajes[] = [];
+  private pageNum=1;
+  personajes: Personajes[] = [];
 
-  personajes: Personajes[] = [
-    {
-      id: 1,
-      name: "Rick Sanchez",
-      status: "Alive",
-      species: "Human",
-      gender: "Male",
-      location: "Earth (Replacement Dimension)",
-      img: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-    },
-    {
-      id: 2,
-      name: "Morty Smith",
-      status: "Alive",
-      species: "Human",
-      gender: "Male",
-      location: "Earth",
-      img: "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-    }
-  ];
+  constructor (
+    private storeService: StoreService,
+    private personajeService: PersonajesService
+  ) {
+    this.Myfavorite = this.storeService.getMyFavorites();
+  }
 
-  constructor () {}
+  ngOnInit():void {
+   this.getDataFromService();
+  }
 
-  ngOnChanges() {
-      //algo voy a hacer aqui solo que aun no lo se
+  private getDataFromService():void{
+    this.personajeService.getAllPersonajes(this.pageNum)
+    .pipe(
+      take(1)
+    ).subscribe( (res:any) => {
+      console.log(res);
+      const {info, results} = res;
+      this.personajes = [...this.personajes, ...results];
+      this.info = info;
+    });
+  }
+
+  private seachPersonajes(): void {
+    //algo voy a poner acá
   }
 
   onAddToFavorites(personaje: Personajes) {
-    this.Myfavorite.push(personaje);
+    this.storeService.addPersonaje(personaje);
   }
 
 }

@@ -8,15 +8,7 @@ import { Personajes } from '../../models/personajes.models';
 })
 export class PersonajeComponent {
 
-  @Input() personaje: Personajes = {
-    id: 0,
-    name: '',
-    status: '',
-    species: '',
-    gender: '',
-    location: '',
-    img: ''
-  };
+  @Input() personaje !: Personajes;
 
   @Output() addPersonajes = new EventEmitter<Personajes>();
 
