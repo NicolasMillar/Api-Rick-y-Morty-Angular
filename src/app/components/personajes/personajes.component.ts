@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Personajes } from '../../models/personajes.models';
 import { StoreService } from '../../services/store.service';
 import { PersonajesService } from '../../services/personajes.service';
@@ -13,9 +13,9 @@ type RequestInfo = {
   templateUrl: './personajes.component.html',
   styleUrls: ['./personajes.component.css']
 })
-export class PersonajesComponent implements OnInit{
+export class PersonajesComponent implements OnInit, OnChanges{
 
-  @Input() locations: String = 'valor inicial';
+  @Input() locations: string = 'valor inicial';
   info: RequestInfo = {
     next: '',
   }
@@ -34,12 +34,17 @@ export class PersonajesComponent implements OnInit{
    this.getDataFromService();
   }
 
+  ngOnChanges():void {
+    if(this.locations != ''){
+      this.seachPersonajes();
+    }
+  }
+
   private getDataFromService():void{
     this.personajeService.getAllPersonajes(this.pageNum)
     .pipe(
       take(1)
     ).subscribe( (res:any) => {
-      console.log(res);
       const {info, results} = res;
       this.personajes = [...this.personajes, ...results];
       this.info = info;
@@ -47,7 +52,16 @@ export class PersonajesComponent implements OnInit{
   }
 
   private seachPersonajes(): void {
-    //algo voy a poner acá
+    this.personajeService.searcgPersonajes(this.locations)
+    .pipe(
+      take(1)
+    ).subscribe((res:any) => {
+      console.log(res);
+      const {info, results} = res;
+      this.personajes = [...this.personajes, ...results];
+      this.info = info;
+    });
+    
   }
 
   onAddToFavorites(personaje: Personajes) {
