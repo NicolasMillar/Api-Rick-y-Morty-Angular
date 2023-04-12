@@ -35,9 +35,7 @@ export class PersonajesComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges():void {
-    if(this.locations != ''){
-      this.seachPersonajes();
-    }
+    this.seachPersonajes();
   }
 
   private getDataFromService():void{
