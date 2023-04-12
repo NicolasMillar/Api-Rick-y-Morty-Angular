@@ -16,7 +16,8 @@ export class PersonajesService {
   }
 
   searcgPersonajes(query = ''){
-    return this.http.get<Personajes[]>('https://rickandmortyapi.com/api/character/?name=${query}');
+    console.log(query);
+    return this.http.get<Personajes[]>('https://rickandmortyapi.com/api/character/?name='+query);
   }
 
 }
