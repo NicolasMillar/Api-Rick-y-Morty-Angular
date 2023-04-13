@@ -1,3 +1,4 @@
-<div class="personajes--grid">
+<div class="personajes--grid" infinite-scroll (scrolled)="scrollDonw()">
     <app-personaje *ngFor="let p of personajes" [personaje]="p" (addPersonajes)="onAddToFavorites($event)"></app-personaje>
 </div>
+<button class="btn btn-dark" [ngClass]="'no-hidden'" *ngIf="showGoUpButton" (click)="scrollTop">Go up</button>

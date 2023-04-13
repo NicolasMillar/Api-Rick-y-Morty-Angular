@@ -12,7 +12,7 @@ export class PersonajesService {
   constructor(private http: HttpClient) { }
 
   getAllPersonajes(page = 1){   
-    return this.http.get<Personajes[]>('https://rickandmortyapi.com/api/character/?page=${page}');
+    return this.http.get<Personajes[]>('https://rickandmortyapi.com/api/character/?page='+page);
   }
 
   searcgPersonajes(query = ''){
