@@ -44,7 +44,7 @@ export class PersonajesComponent implements OnInit, OnChanges{
       take(1)
     ).subscribe( (res:any) => {
       const {info, results} = res;
-      this.personajes = [...this.personajes, ...results];
+      this.personajes = [...results];
       this.info = info;
     });
   }

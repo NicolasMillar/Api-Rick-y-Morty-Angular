@@ -1,4 +1,3 @@
-<p>number of favorite characters {{ Myfavorite.length }}</p>
 <div class="personajes--grid">
     <app-personaje *ngFor="let p of personajes" [personaje]="p" (addPersonajes)="onAddToFavorites($event)"></app-personaje>
 </div>
