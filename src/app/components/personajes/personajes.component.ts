@@ -58,7 +58,7 @@ export class PersonajesComponent implements OnInit, OnChanges{
   scrollDonw():void{
     if(this.info.next){
       this.pageNum++;
-      this.getDataFromService();
+      this.dataScroll();
     }
   }
 
@@ -73,7 +73,7 @@ export class PersonajesComponent implements OnInit, OnChanges{
       take(1)
     ).subscribe( (res:any) => {
       const {info, results} = res;
-      this.personajes = [...this.personajes, ...results];
+      this.personajes = [...results];
       this.info = info;
     });
   }
@@ -83,12 +83,22 @@ export class PersonajesComponent implements OnInit, OnChanges{
     .pipe(
       take(1)
     ).subscribe((res:any) => {
-      console.log(res);
       const {info, results} = res;
       this.personajes = [...results];
       this.info = info;
     });
     
+  }
+
+  private dataScroll():void{
+    this.personajeService.getAllPersonajes(this.pageNum)
+    .pipe(
+      take(1)
+    ).subscribe( (res:any) => {
+      const {info, results} = res;
+      this.personajes = [...this.personajes, ...results];
+      this.info = info;
+    });
   }
 
   onAddToFavorites(personaje: Personajes) {
