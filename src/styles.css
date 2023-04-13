@@ -3,3 +3,9 @@ body{
     background: rgb(57,251,163);
     background: linear-gradient(90deg, rgba(57,251,163,1) 33%, rgba(26,214,252,1) 67%, rgba(69,69,245,1) 100%);
 }
+.no-hidden{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    visibility: visible;
+}
